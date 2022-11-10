@@ -25,18 +25,18 @@ function videoStart() {
         })
 }
 
-function startRecoding(stream) {
+function startRecording(stream) {
     recordedChunks = []; // 녹화 시작할 때마다 초기화시켜주는듯! 
     recorder = new MediaRecorder(stream);
     recorder.ondataavailable = (e) => {recordedChunks.push(e.data)}
     recorder.start()
 }
 function stopRecording() {
-   // console.log(previewPlayer.srcObject.getTracks())
+    //console.log(previewPlayer.srcObject.getTracks())
     // -> Cannot read properties of null (reading 'getTracks') 에러발생
     //previewPlayer가 null인가봄..
     //device가 없어서 previewPlayer에 null값이 들어가는걸까 ?
-    previewPlayer.srcObject.getTracks.forEach(track => track.stop());
+    previewPlayer.srcObject.getTracks().forEach(track => track.stop());
     recorder.stop()
     console.log(recordedChunks)
 }
@@ -52,4 +52,4 @@ function playRecording() {
 // event
 recordButton.addEventListener("click", videoStart )
 stopButton.addEventListener("click", stopRecording) // -> stopRecording 함수 실행
-playButton.addEventListener("click", playerRecording);
+playButton.addEventListener("click", playRecording);
